@@ -23,7 +23,7 @@ from gpt import GPT
 import os
 
 app = Flask(__name__)
-gptAPI = GPT(os.environ.get('APIKEY'))
+gptAPI = GPT(os.environ.get('OPENAI_API_KEY'))
 
 # Set the secret key to some random bytes. Keep this really secret!
 app.secret_key = b'_5#y2L"F4Q789789uioujkkljkl...8z\n\xec]/'
@@ -34,9 +34,32 @@ def index():
     print('processing / route')
     return f'''
         <h1>GPT Demo</h1>
-        <a href="{url_for('gptdemo')}">Ask questions to GPT</a>
+        <a href="/about">About</a><p>
+        <a href="/team">Team</a><p>
+        <a href="/index">Index</a><p>
+        <a href="gptdemo">GPT demo</a>
+    '''
+@app.route('/about')
+def about():
+    return f'''
+    <h1>About</h1>
+    <p>The program ...</p>
+    '''
+@app.route('/team')
+def team():
+    return f'''
+    <h1>Team Members</h1>
+    <h2>Members</h2>
+    <h2>Member</h2>
+    <h2>Member</h2>
+    <h2>Member</h2>
     '''
 
+@app.route('/index')
+def index_page():
+    return f'''
+    <h1>Index</h1>
+    '''
 
 @app.route('/gptdemo', methods=['GET', 'POST'])
 def gptdemo():
