@@ -23,7 +23,7 @@ from gpt import GPT
 import os
 
 app = Flask(__name__)
-gptAPI = GPT(os.environ.get('OPENAI_API_KEY'))
+gptAPI = GPT(os.environ.get('APIKEY'))
 
 # Set the secret key to some random bytes. Keep this really secret!
 app.secret_key = b'_5#y2L"F4Q789789uioujkkljkl...8z\n\xec]/'
@@ -51,6 +51,8 @@ def team():
     <h1>Team Members</h1>
     <h2>Members</h2>
     <h2>Member</h2>
+    <h2>Ian I</h2>
+    <p> Ian is a senior at Brandeis with a major in french and an interest as well as a minor in cs. </p>
     <h2>Member</h2>
     <h2>Member</h2>
     '''
