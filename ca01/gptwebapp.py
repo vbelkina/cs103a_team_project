@@ -61,6 +61,7 @@ def team():
 def index_page():
     return f'''
     <h1>Index</h1>
+    <a href="/ian_Page">Ian Prompt</a><p>
     '''
 
 @app.route('/gptdemo', methods=['GET', 'POST'])
@@ -84,6 +85,33 @@ def gptdemo():
     else:
         return '''
         <h1>GPT Demo App</h1>
+        Enter your query below
+        <form method="post">
+            <textarea name="prompt"></textarea>
+            <p><input type=submit value="get response">
+        </form>
+        '''
+@app.route('/ian_Page', methods=['GET', 'POST'])
+def ian_Page():
+    ''' handle a get request by sending a form 
+        and a post request by returning the GPT response
+    '''
+    if request.method == 'POST':
+        prompt = request.form['prompt']
+        answer = gptAPI.getResponse(prompt)
+        return f'''
+        <h1>Ian's GPT Prompter</h1>
+        <pre style="bgcolor:yellow">{prompt}</pre>
+        <hr>
+        Here is the answer in text mode:
+        <div style="border:thin solid black">{answer}</div>
+        Here is the answer in "pre" mode:
+        <pre style="border:thin solid black">{answer}</pre>
+        <a href={url_for('ian_Page')}> make another query</a>
+        '''
+    else:
+        return '''
+        <h1>:3</h1>
         Enter your query below
         <form method="post">
             <textarea name="prompt"></textarea>
