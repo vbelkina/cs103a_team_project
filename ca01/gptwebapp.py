@@ -18,8 +18,9 @@ On Windows:
 % $env:APIKEY="....." # in powershell
 % python gptwebapp.py
 '''
-from flask import request,redirect,url_for,Flask
+from flask import request,redirect,url_for,Flask, render_template
 from gpt import GPT
+import openai
 import os
 
 app = Flask(__name__)
@@ -32,37 +33,19 @@ app.secret_key = b'_5#y2L"F4Q789789uioujkkljkl...8z\n\xec]/'
 def index():
     ''' display a link to the general query page '''
     print('processing / route')
-    return f'''
-        <h1>GPT Demo</h1>
-        <a href="/about">About</a><p>
-        <a href="/team">Team</a><p>
-        <a href="/index">Index</a><p>
-        <a href="gptdemo">GPT demo</a>
-    '''
+    return render_template("home.html")
+
 @app.route('/about')
 def about():
-    return f'''
-    <h1>About</h1>
-    <p>The program ...</p>
-    '''
+    return render_template("about.html")
+
 @app.route('/team')
 def team():
-    return f'''
-    <h1>Team Members</h1>
-    <h2>Members</h2>
-    <h2>Member</h2>
-    <h2>Ian I</h2>
-    <p> Ian is a senior at Brandeis with a major in french and an interest as well as a minor in cs. </p>
-    <h2>Member</h2>
-    <h2>Member</h2>
-    '''
+    return render_template("team.html")
 
 @app.route('/index')
 def index_page():
-    return f'''
-    <h1>Index</h1>
-    <a href="/ian_Page">Ian Prompt</a><p>
-    '''
+    return render_template("index.html")
 
 @app.route('/gptdemo', methods=['GET', 'POST'])
 def gptdemo():
@@ -91,6 +74,7 @@ def gptdemo():
             <p><input type=submit value="get response">
         </form>
         '''
+    
 @app.route('/ian_Page', methods=['GET', 'POST'])
 def ian_Page():
     ''' handle a get request by sending a form 
@@ -118,6 +102,19 @@ def ian_Page():
             <p><input type=submit value="get response">
         </form>
         '''
+    
+@app.route('/veronika', methods=['GET', 'POST'])
+def veronika():
+    ''' handle a get request by sending a form 
+        and a post request by returning the GPT response
+    '''
+    if request.method == 'POST':
+        prompt = request.form['prompt']
+        prompt = "Translate the following into Russian: " + prompt
+        answer = gptAPI.getResponse(prompt)
+        return render_template("veronika_prompt.html", show_answer=True, prompt=prompt, answer=answer)
+    else:
+        return render_template("veronika_prompt.html", show_answer=False)
 
 if __name__=='__main__':
     # run the code on port 5001, MacOS uses port 5000 for its own service :(
