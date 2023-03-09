@@ -75,19 +75,19 @@ def gptdemo():
         </form>
         '''
     
-@app.route('/ian_Page', methods=['GET', 'POST'])
-def ian_Page():
+@app.route('/ian', methods=['GET', 'POST'])
+def ian():
     ''' handle a get request by sending a form 
         and a post request by returning the GPT response
     '''
     if request.method == 'POST':
         prompt = request.form['prompt']
         or_prompt = prompt
-        prompt = "Translate the following into French; pay attention to proper grammar while doing so. At the end, gloss the French words to English. Then, explain the grammar of the translated sentence. \"" + prompt + "\""
+        prompt = "Translate the following into French; pay attention to proper grammar while doing so. Explain the grammar of the translated sentence. At the end, gloss the French words to English. \"" + prompt + "\""
         answer = gptAPI.getResponse(prompt)
-        return render_template("ian_Page.html", show_answer=True, prompt=prompt, answer=answer, or_prompt=or_prompt)
+        return render_template("ian.html", show_answer=True, prompt=prompt, answer=answer, or_prompt=or_prompt)
     else:
-        return render_template("ian_Page.html", show_answer=False)
+        return render_template("ian.html", show_answer=False)
 
     
 @app.route('/veronika', methods=['GET', 'POST'])
