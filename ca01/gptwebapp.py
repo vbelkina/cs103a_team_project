@@ -82,26 +82,13 @@ def ian_Page():
     '''
     if request.method == 'POST':
         prompt = request.form['prompt']
+        or_prompt = prompt
+        prompt = "Translate the following into French; pay attention to proper grammar while doing so. At the end, gloss the French words to English. Then, explain the grammar of the translated sentence. \"" + prompt + "\""
         answer = gptAPI.getResponse(prompt)
-        return f'''
-        <h1>Ian's GPT Prompter</h1>
-        <pre style="bgcolor:yellow">{prompt}</pre>
-        <hr>
-        Here is the answer in text mode:
-        <div style="border:thin solid black">{answer}</div>
-        Here is the answer in "pre" mode:
-        <pre style="border:thin solid black">{answer}</pre>
-        <a href={url_for('ian_Page')}> make another query</a>
-        '''
+        return render_template("ian_Page.html", show_answer=True, prompt=prompt, answer=answer, or_prompt=or_prompt)
     else:
-        return '''
-        <h1>:3</h1>
-        Enter your query below
-        <form method="post">
-            <textarea name="prompt"></textarea>
-            <p><input type=submit value="get response">
-        </form>
-        '''
+        return render_template("ian_Page.html", show_answer=False)
+
     
 @app.route('/veronika', methods=['GET', 'POST'])
 def veronika():
