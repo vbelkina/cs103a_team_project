@@ -72,17 +72,20 @@
         background-color: rgba(255, 255, 255, 0.527);
         color: black;
         padding: 10px;
+        min-width: fit-content;
         max-width: 760px;
         border-radius: 10px;
         display: flex; 
         flex-direction: column;
         align-items: center;
+        align-content: center;
+        justify-content: center;
     }
 
 </style>
 
 <body>
-    <h2>Veronika Belkina</h2>
+    <h2>Veronika B</h2>
     <div class="query_container">
         Translate into Russian: 
             <form method="post">
@@ -93,8 +96,8 @@
 
     {% if show_answer %}
     <div class="show_answer">
-        <pre style="font-size:15px;">{{ prompt }}</pre>
-        <div class="answer" style="font-size: 25px;">{{ answer }}</div>
+        <pre style="font-size:15px; ">{{ prompt }}</pre>
+        <pre class="answer" style="font-size: 25px;">{{ answer }}</pre>
     </div>
     {% endif %}
 </body>
