@@ -121,6 +121,19 @@ def daniel():
     else:
         return render_template("daniel.html", show_answer=False)
 
+@app.route('/kevin', methods=['GET', 'POST'])
+def kevin():
+    ''' handle a get request by sending a form 
+        and a post request by returning the GPT response
+    '''
+    if request.method == 'POST':
+        prompt = request.form['prompt']
+        new_prompt = "Translate the following text into Mandarin, and include a glossary, for each Mandarin character and its corresponding English translation at the end. \n" + prompt
+        answer = gptAPI.getResponse(new_prompt)
+        return render_template("kevin.html", show_answer=True, prompt=prompt, answer=answer)
+    else:
+        return render_template("kevin.html", show_answer=False)
+
 if __name__=='__main__':
     # run the code on port 5001, MacOS uses port 5000 for its own service :(
     app.run(debug=True,port=5001)
