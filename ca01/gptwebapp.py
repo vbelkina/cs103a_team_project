@@ -97,7 +97,7 @@ def veronika():
     '''
     if request.method == 'POST':
         prompt = request.form['prompt']
-        new_prompt = "Translate the following into Russian.\n Have a glossary of for each Russian word to English at the end: \n" + prompt
+        new_prompt = "Translate the following into Russian.\n Have a glossary for each Russian word to English at the end: \n" + prompt
         answer = gptAPI.getResponse(new_prompt)
         answer_split = answer.split("Glossary:")
         answer_split = answer_split[0] + "\n" + answer_split[1]
