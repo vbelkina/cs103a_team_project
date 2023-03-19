@@ -1,0 +1,105 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<style>
+    html {
+          height: 100%;
+    }
+
+    h2 {
+        font-size: 20px;
+        margin: auto;
+        margin-top: 20px;
+    }
+    
+    body {
+        background-color: #d99ff0;
+        background-image: linear-gradient(
+            to bottom,
+            #d99ff0 0%,
+            #ebda7a 46%,
+            #f2893e 100%
+        );
+        font-family: sans-serif;
+        margin: 0px;
+        display: flex;
+        align-items: center;
+        justify-content: center; 
+        flex-direction: column; 
+        padding: 10px;
+    }
+
+    .query_container {
+        margin: 10px;
+        margin-top: 25px;
+        display: flex;
+        flex-direction: column; 
+        justify-items: center;
+        align-items: center;
+    }
+
+    input {
+        border: none; 
+        background-color: #7d3799;
+        color: white;
+        padding: 10px;
+        border-radius: 10px;
+        margin-left: 10px;
+        max-height: 50px;
+    }
+
+    form {
+        display: flex; 
+        flex-direction: row;
+        justify-content: center;
+        align-content: center;
+        padding: 10px;
+    }
+
+    textarea {
+        min-width: 330px;
+        max-width: 500px;
+        max-height: 500px;
+        min-height: 50px;
+        background-color: transparent;
+        border-color: #7d3799;
+        border-radius: 10px;
+        padding: 10px;
+    }
+
+    .show_answer {
+        background-color: rgba(255, 255, 255, 0.527);
+        color: black;
+        padding: 10px;
+        min-width: fit-content;
+        max-width: 760px;
+        border-radius: 10px;
+        display: flex; 
+        flex-direction: column;
+        align-items: center;
+        align-content: center;
+        justify-content: center;
+    }
+
+</style>
+
+<body>
+    <h2>Kevin D</h2>
+    <div class="query_container">
+        Translate into Mandarin, and explain the translation: 
+            <form method="post">
+                <textarea name="prompt"></textarea>
+                <input type=submit value="get response">
+            </form>
+    </div>
+
+    {% if show_answer %}
+    <div class="show_answer">
+        <pre style="font-size:15px; ">{{ prompt }}</pre>
+        <pre class="answer" style="font-size: 25px;">{{ answer }}</pre>
+    </div>
+    {% endif %}
+</body>
+
+{% endblock %}
