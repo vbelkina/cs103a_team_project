@@ -97,11 +97,10 @@ def veronika():
     '''
     if request.method == 'POST':
         prompt = request.form['prompt']
-        new_prompt = "Translate the following into Russian.\n Have a glossary of the Russian words to English at the end: \n" + prompt
+        new_prompt = "Translate the following into Russian.\n Have a glossary for each Russian word to English at the end: \n" + prompt
         answer = gptAPI.getResponse(new_prompt)
-        answer_split = answer.split("Glossary:")
-        answer_split = answer_split[0] + "\n" + answer_split[1]
-        return render_template("veronika.html", show_answer=True, prompt=prompt, answer=answer_split)
+
+        return render_template("veronika.html", show_answer=True, prompt=prompt, answer=answer)
     else:
         return render_template("veronika.html", show_answer=False)
     
