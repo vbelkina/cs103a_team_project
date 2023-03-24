@@ -8,15 +8,19 @@ def print_usage():
             type quit (description: to end the program)
             type showall_categories (description: show all categories)
             type add_category (description: to add a new category)
-            type showall_transactions(description: for all transactions)
+            type showall_transactions (description: for all transactions)
             type add_transaction amount category date description (description: to add a new transaction)
             type delete_transaction item# (description: to delete a new transaction)
+
+            type sum_transactions_year (description: to summarize transactions by year)
+            type sum_transactions_category (description: gives total amount of transactions for each category)
+            type print_usage (description: to print this message)
             '''
             )
 
 def print_transactions(todos):
     if len(todos)==0:
-        print('no tasks to print')
+        print('no transactions to print')
         return
     print('\n')
     print("%-30s %-30s %-30s %-30s %-30s"%('item #', 'amount', 'category', 'date', 'description'))
@@ -27,7 +31,7 @@ def print_transactions(todos):
 
 def print_categories(todos):
     if len(todos)==0:
-        print('no tasks to print')
+        print('no categories to print')
         return
     print('\n')
     print("%-30s %-30s"%('item #', 'category',))
@@ -35,6 +39,23 @@ def print_categories(todos):
     for item in todos:
         values = tuple(item.values()) #(rowid,category)
         print("%-30s %-30s "%values)
+
+def sum_transactions_category(categories,track_list):
+    if len(categories)==0:
+        print('no categories')
+        return
+    print('\n')
+    print("%-30s %-30s"%('category', 'amount',))
+    print('-'*50)
+    for item in categories:
+        values = tuple(item[1],sum_category(item,track_list)) #(category,total amount)
+        print("%-30s %-30s "%values)
+
+def sum_category(category, track_list):
+    total = 0
+    for item in track_list.selectAmountsByCategory(category):
+        total += item
+    return total
 
 def process_args(arglist):
     track_list = trackerList()
@@ -73,8 +94,11 @@ def process_args(arglist):
     elif arglist[0]=='delete_transaction':
         track_list.delete(arglist[1])
 
+    elif arglist[0]=='sum_transactions_category':
+        sum_transactions_category(categories = category_list.selectAll(), track_list = track_list)
+
     else:
-        print(arglist,"is not implemented")
+        print(arglist," is not implemented")
         print_usage()
 
 
