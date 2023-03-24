@@ -17,6 +17,9 @@ class trackerList():
     def add(self,item):
         return self.runQuery("INSERT INTO tracker VALUES(?,?,?,?)",(item['amount'],item['category'],item['date'],item['description']))
 
+    def delete(self,rowid):
+        return self.runQuery("DELETE FROM tracker WHERE rowid=(?)",(rowid,))
+
     def runQuery(self,query,tuple):
         ''' return all of the uncompleted tasks as a list of dicts.'''
         con= sqlite3.connect(os.getenv('HOME')+'/tracker.db')
