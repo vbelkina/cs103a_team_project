@@ -20,8 +20,8 @@ class trackerList():
     def delete(self,rowid):
         return self.runQuery("DELETE FROM tracker WHERE rowid=(?)",(rowid,))
 
-    def selectAmountsByCategory(self,category):
-        return self.runQuery("SELECT amount FROM tracker WHERE category=(?)",(category,))
+    def selectByCategory(self,category):
+        return self.runQuery("SELECT rowid,* FROM tracker WHERE category=(?)",(category,))
 
     def runQuery(self,query,tuple):
         ''' return all of the uncompleted tasks as a list of dicts.'''

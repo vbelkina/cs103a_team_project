@@ -12,8 +12,8 @@ def print_usage():
             type add_transaction amount category date description (description: to add a new transaction)
             type delete_transaction item# (description: to delete a new transaction)
 
-            type sum_transactions_year (description: to summarize transactions by year)
-            type sum_transactions_category (description: gives total amount of transactions for each category)
+            type sum_transactions_year (description: gives the sum of amounts for all transactions in the given year)
+            type sum_transactions_category category (description: gives the sum of amounts for all transactions of the given category)
             type print_usage (description: to print this message)
             '''
             )
@@ -40,22 +40,16 @@ def print_categories(todos):
         values = tuple(item.values()) #(rowid,category)
         print("%-30s %-30s "%values)
 
-def sum_transactions_category(categories,track_list):
-    if len(categories)==0:
-        print('no categories')
+def sum_transactions_category(transactions):
+    if len(transactions)==0:
+        print('no items in this category')
         return
     print('\n')
-    print("%-30s %-30s"%('category', 'amount',))
     print('-'*50)
-    for item in categories:
-        values = tuple(item[1],sum_category(item,track_list)) #(category,total amount)
-        print("%-30s %-30s "%values)
-
-def sum_category(category, track_list):
     total = 0
-    for item in track_list.selectAmountsByCategory(category):
-        total += item
-    return total
+    for item in transactions:
+        total += int(item['amount'])
+    print("Total amount for all transactions with this category is: ", total)
 
 def process_args(arglist):
     track_list = trackerList()
@@ -95,7 +89,7 @@ def process_args(arglist):
         track_list.delete(arglist[1])
 
     elif arglist[0]=='sum_transactions_category':
-        sum_transactions_category(categories = category_list.selectAll(), track_list = track_list)
+        sum_transactions_category(transactions = track_list.selectByCategory(arglist[1]))
 
     else:
         print(arglist," is not implemented")
@@ -119,6 +113,9 @@ def toplevel():
 
             elif args[0]=='delete_transaction':
                 args = ['delete_transaction', args[1]]
+            
+            elif args[0]=='sum_transactions_category':
+                args = ['sum_transactions_category', args[1]]
 
             process_args(args)
     else:
