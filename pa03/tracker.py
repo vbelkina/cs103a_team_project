@@ -32,7 +32,7 @@ def print_categories(todos):
     print("%-30s %-30s"%('item #', 'category',))
     print('-'*50)
     for item in todos:
-        values = tuple(item.values()) #(rowid,title,desc,completed)
+        values = tuple(item.values()) #(rowid,category)
         print("%-30s %-30s "%values)
 
 def process_args(arglist):
@@ -48,6 +48,21 @@ def process_args(arglist):
         print_categories(todos = category_list.selectAll())
 
     elif arglist[0]=='add_transaction':
+        # Here I want to check if the inputed category is inside category db. if yes then we continue else we put it into the db.
+        category_inputed = arglist[2]
+        exists = False
+        for item in category_list.selectAll():
+            values = tuple(item.values()) #(rowid,category)
+            if values[1] == category_inputed:
+                exists = True
+                break
+        
+        if exists == False:
+            temp_args = ['add_category', category_inputed]
+            category_list.add({'categories_name':temp_args[1]})
+
+        # Check is over
+
         todo = {'amount':arglist[1],'category':arglist[2], 'date':arglist[3], 'description':arglist[4]}
         track_list.add(todo)
 
