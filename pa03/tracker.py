@@ -29,8 +29,8 @@ def print_categories(todos):
         print('no tasks to print')
         return
     print('\n')
-    print("%-30s %-30s %-30s %-30s %-30s"%('item #', 'category',))
-    print('-'*150)
+    print("%-30s %-30s"%('item #', 'category',))
+    print('-'*50)
     for item in todos:
         values = tuple(item.values()) #(rowid,title,desc,completed)
         print("%-30s %-30s "%values)
