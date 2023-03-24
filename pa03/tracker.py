@@ -10,7 +10,7 @@ def print_usage():
             type add_category (description: to add a new category)
             type showall_transactions(description: for all transactions)
             type add_transaction amount category date description (description: to add a new transaction)
-            type delete_transaction ? (description: to delete a new transaction)
+            type delete_transaction item# (description: to delete a new transaction)
             '''
             )
 
