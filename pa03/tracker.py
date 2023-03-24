@@ -10,6 +10,7 @@ def print_usage():
             type add_category (description: to add a new category)
             type showall_transactions(description: for all transactions)
             type add_transaction amount category date description (description: to add a new transaction)
+            type delete_transaction ? (description: to delete a new transaction)
             '''
             )
 
@@ -68,6 +69,9 @@ def process_args(arglist):
 
     elif arglist[0]=='add_category':
         category_list.add({'categories_name':arglist[1]})
+    
+    elif arglist[0]=='delete_transaction':
+        track_list.delete(arglist[1])
 
     else:
         print(arglist,"is not implemented")
@@ -88,6 +92,9 @@ def toplevel():
 
             elif args[0]=='add_category':
                 args = ['add_category', args[1]]
+
+            elif args[0]=='delete_transaction':
+                args = ['delete_transaction', args[1]]
 
             process_args(args)
     else:
