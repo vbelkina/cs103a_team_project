@@ -1,6 +1,7 @@
 from transaction import trackerList
 from category import categoriesList
 import sys
+import os
 
 def print_usage():
     ''' print an explanation of how to use this command '''
@@ -63,7 +64,7 @@ def sum_transactions_category(transactions):
     print("Total amount for all transactions with this category is: ", total)
 
 def process_args(arglist):
-    track_list = trackerList()
+    track_list = trackerList(os.path.join(os.environ['HOME'], 'tracker.db'))
     category_list = categoriesList()
     if arglist==[]:
         print_usage()
