@@ -7,7 +7,8 @@ def toDict(t):
     return tracker
 
 class trackerList():
-    def __init__(self):
+    def __init__(self, db_path):
+        self.db_path=db_path
         self.runQuery('''CREATE TABLE IF NOT EXISTS tracker
                     (amount text, category text, date text, description text)''',())
     
@@ -28,7 +29,7 @@ class trackerList():
 
     def runQuery(self,query,tuple):
         ''' return all of the uncompleted tasks as a list of dicts.'''
-        con= sqlite3.connect(os.getenv("HOME")+'/tracker.db')
+        con= sqlite3.connect(self.db_path)
         cur = con.cursor() 
         cur.execute(query,tuple)
         tuples = cur.fetchall()
