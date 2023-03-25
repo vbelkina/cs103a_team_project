@@ -22,10 +22,13 @@ class trackerList():
 
     def selectByCategory(self,category):
         return self.runQuery("SELECT rowid,* FROM tracker WHERE category=(?)",(category,))
+    
+    def selectByYear(self,year):
+        return self.runQuery("SELECT rowid,* FROM tracker WHERE date LIKE (?)",(year+'%',))
 
     def runQuery(self,query,tuple):
         ''' return all of the uncompleted tasks as a list of dicts.'''
-        con= sqlite3.connect('tracker.db')
+        con= sqlite3.connect(os.getenv("HOME")+'/tracker.db')
         cur = con.cursor() 
         cur.execute(query,tuple)
         tuples = cur.fetchall()

@@ -12,7 +12,7 @@ def print_usage():
             type add_transaction amount category date description (description: to add a new transaction)
             type delete_transaction item# (description: to delete a new transaction)
 
-            type sum_transactions_year (description: gives the sum of amounts for all transactions in the given year)
+            type sum_transactions_year year (description: gives the sum of amounts for all transactions in the given year)
             type sum_transactions_category category (description: gives the sum of amounts for all transactions of the given category)
             type print_usage (description: to print this message)
             '''
@@ -40,9 +40,20 @@ def print_categories(todos):
         values = tuple(item.values()) #(rowid,category)
         print("%-30s %-30s "%values)
 
+def sum_transactions_year(transactions):
+    if len(transactions)==0:
+        print('no transactions during this year')
+        return
+    print('\n')
+    print('-'*50)
+    total = 0
+    for item in transactions:
+        total += int(item['amount'])
+    print("Total amount for all transactions during this year is: ", total)
+
 def sum_transactions_category(transactions):
     if len(transactions)==0:
-        print('no items in this category')
+        print('no transactions in this category')
         return
     print('\n')
     print('-'*50)
@@ -88,6 +99,9 @@ def process_args(arglist):
     elif arglist[0]=='delete_transaction':
         track_list.delete(arglist[1])
 
+    elif arglist[0]=='sum_transactions_year':
+        sum_transactions_year(transactions = track_list.selectByYear(arglist[1]))
+
     elif arglist[0]=='sum_transactions_category':
         sum_transactions_category(transactions = track_list.selectByCategory(arglist[1]))
 
@@ -114,6 +128,9 @@ def toplevel():
             elif args[0]=='delete_transaction':
                 args = ['delete_transaction', args[1]]
             
+            elif args[0]=='sum_transactions_year':
+                args = ['sum_transactions_year', args[1]]
+
             elif args[0]=='sum_transactions_category':
                 args = ['sum_transactions_category', args[1]]
 
