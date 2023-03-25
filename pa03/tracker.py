@@ -12,7 +12,8 @@ def print_usage():
             type showall_transactions (description: for all transactions)
             type add_transaction amount category date description (description: to add a new transaction)
             type delete_transaction item# (description: to delete a new transaction)
-
+            type sum_transactions_date date (description: gives the sum of amounts for all transactions on the given date)
+            type sum_transactions_month month   (description: gives the sum of amounts for all transactions in the given month)
             type sum_transactions_year year (description: gives the sum of amounts for all transactions in the given year)
             type sum_transactions_category category (description: gives the sum of amounts for all transactions of the given category)
             type print_usage (description: to print this message)
@@ -48,9 +49,13 @@ def sum_transactions_year(transactions):
     print('\n')
     print('-'*50)
     total = 0
+    count = 0
     for item in transactions:
         total += int(item['amount'])
+        count += 1
     print("Total amount for all transactions during this year is: ", total)
+    print('\n')
+    print('Total number of transactions during this year is: ', count)
 
 def sum_transactions_category(transactions):
     if len(transactions)==0:
@@ -59,9 +64,13 @@ def sum_transactions_category(transactions):
     print('\n')
     print('-'*50)
     total = 0
+    count = 0
     for item in transactions:
         total += int(item['amount'])
-    print("Total amount for all transactions with this category is: ", total)
+        count += 1
+    print("Total amount for all transactions in this category is: ", total)
+    print('\n')
+    print('Total number of transactions in this category is: ', count)
 
 def process_args(arglist):
     track_list = trackerList(os.path.join(os.environ['HOME'], 'tracker.db'))
