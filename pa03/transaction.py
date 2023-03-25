@@ -26,6 +26,12 @@ class trackerList():
     
     def selectByYear(self,year):
         return self.runQuery("SELECT rowid,* FROM tracker WHERE date LIKE (?)",(year+'%',))
+    
+    def selectByMonth(self,month):
+        return self.runQuery("SELECT rowid,* FROM tracker WHERE date LIKE (?)",(month+'%',))
+    
+    def selectByDate(self,date):
+        return self.runQuery("SELECT rowid,* FROM tracker WHERE date=(?)",(date+'%',))
 
     def runQuery(self,query,tuple):
         ''' return all of the uncompleted tasks as a list of dicts.'''
