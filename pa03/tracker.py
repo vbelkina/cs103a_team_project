@@ -43,6 +43,7 @@ def print_categories(todos):
         values = tuple(item.values()) #(rowid,category)
         print("%-30s %-30s "%values)
 
+#written by Kevin
 def sum_transactions(transactions):
     if len(transactions)==0:
         print('no transactions')
@@ -138,7 +139,7 @@ def toplevel():
             
             elif args[0]=='sum_transactions_month':
                 args = ['sum_transactions_month', args[1]]
-                
+
             elif args[0]=='sum_transactions_year':
                 args = ['sum_transactions_year', args[1]]
 

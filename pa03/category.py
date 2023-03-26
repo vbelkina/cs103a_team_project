@@ -20,11 +20,11 @@ class categoriesList():
     def modify(self,item):
         return self.runQuery("UPDATE categories SET categories_name=(?) WHERE rowid=(?)",(item['categories_name'],item['rowid']))
 
-    def runQuery(self,query,tuple):
+    def runQuery(self,query,ntuple):
         ''' return all of the uncompleted tasks as a list of dicts.'''
         con= sqlite3.connect(os.getenv("HOME")+'/categories.db')
         cur = con.cursor() 
-        cur.execute(query,tuple)
+        cur.execute(query,ntuple)
         tuples = cur.fetchall()
         con.commit()
         con.close()

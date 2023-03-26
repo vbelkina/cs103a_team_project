@@ -1,5 +1,5 @@
 import sqlite3
-import os
+#import os
 
 def toDict(t):
     print('t='+str(t))
@@ -33,11 +33,11 @@ class trackerList():
     def selectByDate(self,date):
         return self.runQuery("SELECT rowid,* FROM tracker WHERE date=(?)",(date+'%',))
 
-    def runQuery(self,query,tuple):
+    def runQuery(self,query,ntuple):
         ''' return all of the uncompleted tasks as a list of dicts.'''
         con= sqlite3.connect(self.db_path)
         cur = con.cursor() 
-        cur.execute(query,tuple)
+        cur.execute(query,ntuple)
         tuples = cur.fetchall()
         con.commit()
         con.close()
