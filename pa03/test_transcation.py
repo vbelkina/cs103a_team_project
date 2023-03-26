@@ -25,14 +25,14 @@ def tuples():
            ]
 
 @pytest.fixture
-def returned_tuples(tuples):
+def returned_tuples(ntuples):
     " add a rowid to the beginning of each tuple "
-    return [(i+1,)+tuples[i] for i in range(len(tuples))]
+    return [(i+1,)+ntuples[i] for i in range(len(ntuples))]
 
 @pytest.fixture
-def returned_dicts(tuples):
+def returned_dicts(ntuples):
     " add a rowid to the beginning of each tuple "
-    return tuples_to_dicts([(i+1,)+tuples[i] for i in range(len(tuples))])
+    return tuples_to_dicts([(i+1,)+ntuples[i] for i in range(len(ntuples))])
 
 @pytest.fixture
 def tracker_path(tmp_path):
@@ -77,4 +77,37 @@ def test_delete(transactions,returned_dicts):
     results = td.selectAll()
     expected = returned_dicts
     expected.pop(0)
+    assert results == expected
+
+#Written by Kevin
+def test_selectByCategory(transactions,returned_dicts):
+    ''' test the selectByCategory method'''
+    td = transactions
+    results = td.selectByCategory('test1')
+    expected = returned_dicts
+    expected.pop(1)
+    assert results == expected
+
+#Written by Kevin
+def test_selectByYear(transactions,returned_dicts):
+    ''' test the selectByYear method'''
+    td = transactions
+    results = td.selectByYear('2018')
+    expected = returned_dicts
+    assert results == expected
+
+#Written by Kevin
+def test_selectByMonth(transactions,returned_dicts):
+    ''' test the selectByMonth method'''
+    td = transactions
+    results = td.selectByMonth('2018-01')
+    expected = returned_dicts
+    assert results == expected
+
+#Written by Kevin
+def test_selectByDate(transactions,returned_dicts):
+    ''' test the selectByDay method'''
+    td = transactions
+    results = td.selectByDate('2018-01-01')
+    expected = returned_dicts
     assert results == expected
