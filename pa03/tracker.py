@@ -64,7 +64,7 @@ def process_args(arglist):
     category_list = categoriesList()
     if arglist==[]:
         print_usage()
-        
+
     elif arglist[0]=="showall_transactions":
         print_transactions(todos = track_list.selectAll())
 
@@ -72,7 +72,8 @@ def process_args(arglist):
         print_categories(todos = category_list.selectAll())
 
     elif arglist[0]=='add_transaction':
-        # Here I want to check if the inputed category is inside category db. if yes then we continue else we put it into the db.
+        # Here I want to check if the inputed category is inside category db. 
+        # if yes then we continue else we put it into the db.
         category_inputed = arglist[2]
         exists = False
         for item in category_list.selectAll():
@@ -86,7 +87,6 @@ def process_args(arglist):
             category_list.add({'categories_name':temp_args[1]})
 
         # Check is over
-
         todo = {'amount':arglist[1],'category':arglist[2], 'date':arglist[3], 'description':arglist[4]}
         track_list.add(todo)
 
@@ -95,7 +95,7 @@ def process_args(arglist):
         
     elif arglist[0]=='modify_category':
         category_list.modify(arglist[1],arglist[2])
-    
+
     elif arglist[0]=='delete_transaction':
         track_list.delete(arglist[1])
 
@@ -114,7 +114,6 @@ def process_args(arglist):
     else:
         print(arglist," is not implemented")
         print_usage()
-
 
 def toplevel():
     if len(sys.argv)==1:
