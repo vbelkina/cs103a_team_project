@@ -1,6 +1,8 @@
 '''
 simple demo of fixtures for Python program with pytest
 use to test the TodoList class 
+
+added by Veronika
 '''
 
 import pytest
@@ -58,4 +60,21 @@ def test_selectAll(transactions,returned_dicts):
     results = td.selectAll()
     expected = returned_dicts
     assert results == expected
-  
+
+def test_add(transactions,returned_dicts):
+    ''' test the add method'''
+    td = transactions
+    td.add({'amount':'100','category':'test3','date':'2018-01-01','description':'test3'})
+    results = td.selectAll()
+    expected = returned_dicts
+    expected.append({'rowid':3,'amount':'100','category':'test3','date':'2018-01-01','description':'test3'})
+    assert results == expected
+
+def test_delete(transactions,returned_dicts):
+    ''' test the delete method'''
+    td = transactions
+    td.delete(1)
+    results = td.selectAll()
+    expected = returned_dicts
+    expected.pop(0)
+    assert results == expected

@@ -9,6 +9,7 @@ def print_usage():
             type quit (description: to end the program)
             type showall_categories (description: show all categories)
             type add_category (description: to add a new category)
+            type modify_category (description: to modify a category)
             type showall_transactions (description: for all transactions)
             type add_transaction amount category date description (description: to add a new transaction)
             type delete_transaction item# (description: to delete a new transaction)
@@ -90,6 +91,9 @@ def process_args(arglist):
 
     elif arglist[0]=='add_category':
         category_list.add({'categories_name':arglist[1]})
+        
+    elif arglist[0]=='modify_category':
+        category_list.modify(arglist[1],arglist[2])
     
     elif arglist[0]=='delete_transaction':
         track_list.delete(arglist[1])
