@@ -1,34 +1,36 @@
 import sqlite3
 import os
 
-def toDict(t):
-    print('t='+str(t))
-    categories = {'rowid':t[0], 'categories_name':t[1]}
+def to_dict(t):
+    '''Converts a tuple to a dictionary.'''
+    categories = {'rowid': t[0], 'categories_name': t[1]}
     return categories
 
-class categoriesList():
+class CategoriesList:
+    '''A class representing a list of categories.'''
     def __init__(self):
-        self.runQuery('''CREATE TABLE IF NOT EXISTS categories (categories_name text)''',())
-    
+        '''Initializes the CategoriesList object.'''
+        self.run_query('''CREATE TABLE IF NOT EXISTS categories (categories_name text)''',())
+
     def selectAll(self):
-        return self.runQuery("SELECT rowid,* from categories",())
+        '''Returns all rows from the categories table as a list of dictionaries.'''
+        return self.run_query("SELECT rowid,* from categories",())
 
-    def add(self,item):
-        return self.runQuery("INSERT INTO categories VALUES(?)",(item['categories_name'],))
+    def add(self, item):
+        '''Inserts a new row into the categories table.'''
+        return self.run_query("INSERT INTO categories VALUES(?)", (item['categories_name'],))
 
-    # added by Veronika
-    def modify(self,item):
-        return self.runQuery("UPDATE categories SET categories_name=(?) WHERE rowid=(?)",(item['categories_name'],item['rowid']))
+    def modify(self, item):
+        '''Modifies an existing row in the categories table.'''
+        return self.run_query("UPDATE categories SET categories_name=(?) WHERE rowid=(?)", 
+                              (item['categories_name'], item['rowid']))
 
-    def runQuery(self,query,ntuple):
-        ''' return all of the uncompleted tasks as a list of dicts.'''
-        con= sqlite3.connect(os.getenv("HOME")+'/categories.db')
-        cur = con.cursor() 
-        cur.execute(query,ntuple)
+    def run_query(self, query, ntuple):
+        '''Executes a SQL query and returns the result as a list of dictionaries.'''
+        con = sqlite3.connect(os.getenv("HOME")+'/categories.db')
+        cur = con.cursor()
+        cur.execute(query, ntuple)
         tuples = cur.fetchall()
         con.commit()
         con.close()
-        return [toDict(t) for t in tuples]
-
-    
-        
+        return [to_dict(t) for t in tuples]
