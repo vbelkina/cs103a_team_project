@@ -94,6 +94,7 @@ def process_args(arglist):
         category_list.add({'categories_name':arglist[1]})
         
     elif arglist[0]=='modify_category':
+        print(arglist[1],arglist[2])
         category_list.modify(arglist[1],arglist[2])
 
     elif arglist[0]=='delete_transaction':

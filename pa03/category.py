@@ -20,10 +20,9 @@ class CategoriesList:
         '''Inserts a new row into the categories table.'''
         return self.run_query("INSERT INTO categories VALUES(?)", (item['categories_name'],))
 
-    def modify(self, item):
-        '''Modifies an existing row in the categories table.'''
-        return self.run_query("UPDATE categories SET categories_name=(?) WHERE rowid=(?)", 
-                              (item['categories_name'], item['rowid']))
+    # added by Veronika
+    def modify(self, item_name, category_name):
+        return self.runQuery("UPDATE categories SET categories_name=(?) WHERE categories_name=(?)",(category_name, item_name))
 
     def run_query(self, query, ntuple):
         '''Executes a SQL query and returns the result as a list of dictionaries.'''
