@@ -20,7 +20,8 @@ def print_usage():
             type sum_transactions_category category (description: summarizes transactions of the given category)
             type print_usage (description: to print this message)
             ''')
-
+    
+# added by Daniel
 def print_transactions(todos):
     ''' prints a list of all of the transactions '''
     if len(todos) == 0:
@@ -32,7 +33,8 @@ def print_transactions(todos):
     for item in todos:
         values = tuple(item.values()) #(rowid,title,desc,completed)
         print("%-30s %-30s %-30s %-30s %-30s"%values)
-
+        
+# added by Daniel
 def print_categories(todos):
     ''' prints a list of each category of transaction in the given database'''
     if len(todos) == 0:
@@ -65,19 +67,21 @@ def sum_transactions(transactions):
     print('\n')
     print('Total number of transactions: ', count)
 
+# added by Daniel
 def process_args(arglist):
     ''' processes the users arguments and runs the proper function '''
     track_list = TrackerList(os.path.join(os.environ['HOME'], 'tracker.db'))
     category_list = CategoriesList()
     if arglist == []:
         print_usage()
-
+    # added by Daniel
     elif arglist[0] == "showall_transactions":
         print_transactions(todos=track_list.select_all())
-
+    # added by Daniel
     elif arglist[0] == "showall_categories":
         print_categories(todos=category_list.selectAll())
-
+    
+    # added by Daniel
     elif arglist[0] == 'add_transaction':
         # Here I want to check if the inputed category is inside category db.
         # if yes then we continue else we put it into the db.
@@ -96,10 +100,10 @@ def process_args(arglist):
         # Check is over
         todo = {'amount':arglist[1], 'category':arglist[2], 'date':arglist[3], 'description':arglist[4]}
         track_list.add(todo)
-
+    # added by Daniel
     elif arglist[0] == 'add_category':
         category_list.add({'categories_name':arglist[1]})
-
+    # added by Daniel
     elif arglist[0] == 'modify_category':
         print(arglist[1], arglist[2])
         category_list.modify(arglist[1], arglist[2])
