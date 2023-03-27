@@ -1,5 +1,5 @@
-from transaction import trackerList
-from category import categoriesList
+from transaction import TrackerList
+from category import CategoriesList
 import sys
 import os
 
@@ -60,13 +60,13 @@ def sum_transactions(transactions):
     print('Total number of transactions: ', count)
 
 def process_args(arglist):
-    track_list = trackerList(os.path.join(os.environ['HOME'], 'tracker.db'))
-    category_list = categoriesList()
+    track_list = TrackerList(os.path.join(os.environ['HOME'], 'tracker.db'))
+    category_list = CategoriesList()
     if arglist==[]:
         print_usage()
 
     elif arglist[0]=="showall_transactions":
-        print_transactions(todos = track_list.selectAll())
+        print_transactions(todos = track_list.select_all())
 
     elif arglist[0]=="showall_categories":
         print_categories(todos = category_list.selectAll())
@@ -100,16 +100,16 @@ def process_args(arglist):
         track_list.delete(arglist[1])
 
     elif arglist[0]=='sum_transactions_date':
-        sum_transactions(transactions = track_list.selectByDate(arglist[1]))
+        sum_transactions(transactions = track_list.select_by_date(arglist[1]))
 
     elif arglist[0]=='sum_transactions_month':
-        sum_transactions(transactions = track_list.selectByMonth(arglist[1]))
+        sum_transactions(transactions = track_list.select_by_month(arglist[1]))
 
     elif arglist[0]=='sum_transactions_year':
-        sum_transactions(transactions = track_list.selectByYear(arglist[1]))
+        sum_transactions(transactions = track_list.select_by_year(arglist[1]))
 
     elif arglist[0]=='sum_transactions_category':
-        sum_transactions(transactions = track_list.selectByCategory(arglist[1]))
+        sum_transactions(transactions = track_list.select_by_category(arglist[1]))
 
     else:
         print(arglist," is not implemented")
@@ -132,10 +132,10 @@ def toplevel():
 
             elif args[0]=='delete_transaction':
                 args = ['delete_transaction', args[1]]
-            
+
             elif args[0]=='sum_transactions_date':
                 args = ['sum_transactions_date', args[1]]
-            
+
             elif args[0]=='sum_transactions_month':
                 args = ['sum_transactions_month', args[1]]
 
@@ -150,7 +150,5 @@ def toplevel():
         args = sys.argv[1:]
         process_args(args)
         print('-'*40+'\n'*3)
-
-    
 
 toplevel()

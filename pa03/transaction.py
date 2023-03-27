@@ -1,47 +1,59 @@
+"""A module for the Transaction class."""
+
+
 import sqlite3
 #import os
 
-def toDict(t):
-    print('t='+str(t))
-    tracker = {'rowid':t[0], 'amount':t[1], 'category':t[2], 'date':t[3], 'description':t[4]}
+def to_dict(tup):
+    """Converts a tuple to a dictionary."""
+    print('t='+str(tup))
+    tracker = {'rowid':tup[0], 'amount':tup[1], 'category':tup[2],
+               'date':tup[3], 'description':tup[4]}
     return tracker
 
-class trackerList():
+class TrackerList():
+    """A class representing a list of transactions."""
+
     def __init__(self, db_path):
         self.db_path=db_path
-        self.runQuery('''CREATE TABLE IF NOT EXISTS tracker
+        self.run_query('''CREATE TABLE IF NOT EXISTS tracker
                     (amount text, category text, date text, description text)''',())
-    
-    def selectAll(self):
-        return self.runQuery("SELECT rowid,* from tracker",())
+
+    def select_all(self):
+        """Return all of the transactions as a list of dicts."""
+        return self.run_query("SELECT rowid,* from tracker",())
 
     def add(self,item):
-        return self.runQuery("INSERT INTO tracker VALUES(?,?,?,?)",(item['amount'],item['category'],item['date'],item['description']))
+        """Add a new transaction to the list."""
+        return self.run_query("INSERT INTO tracker VALUES(?,?,?,?)",
+                             (item['amount'],item['category'],item['date'],item['description']))
 
     def delete(self,rowid):
-        return self.runQuery("DELETE FROM tracker WHERE rowid=(?)",(rowid,))
+        """Delete a transaction from the list."""
+        return self.run_query("DELETE FROM tracker WHERE rowid=(?)",(rowid,))
 
-    def selectByCategory(self,category):
-        return self.runQuery("SELECT rowid,* FROM tracker WHERE category=(?)",(category,))
-    
-    def selectByYear(self,year):
-        return self.runQuery("SELECT rowid,* FROM tracker WHERE date LIKE (?)",(year+'%',))
-    
-    def selectByMonth(self,month):
-        return self.runQuery("SELECT rowid,* FROM tracker WHERE date LIKE (?)",(month+'%',))
-    
-    def selectByDate(self,date):
-        return self.runQuery("SELECT rowid,* FROM tracker WHERE date=(?)",(date+'%',))
+    def select_by_category(self,category):
+        """Selects all transactions of the given category."""
+        return self.run_query("SELECT rowid,* FROM tracker WHERE category=(?)",(category,))
 
-    def runQuery(self,query,ntuple):
+    def select_by_year(self,year):
+        """Selects all transactions in the given year."""
+        return self.run_query("SELECT rowid,* FROM tracker WHERE date LIKE (?)",(year+'%',))
+
+    def select_by_month(self,month):
+        """Selects all transactions in the given month."""
+        return self.run_query("SELECT rowid,* FROM tracker WHERE date LIKE (?)",(month+'%',))
+
+    def select_by_date(self,date):
+        """Selects all transactions on the given date."""
+        return self.run_query("SELECT rowid,* FROM tracker WHERE date=(?)",(date,))
+
+    def run_query(self,query,ntuple):
         ''' return all of the uncompleted tasks as a list of dicts.'''
         con= sqlite3.connect(self.db_path)
-        cur = con.cursor() 
+        cur = con.cursor()
         cur.execute(query,ntuple)
         tuples = cur.fetchall()
         con.commit()
         con.close()
-        return [toDict(t) for t in tuples]
-
-    
-        
+        return [to_dict(t) for t in tuples]
