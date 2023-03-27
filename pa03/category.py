@@ -17,8 +17,8 @@ class categoriesList():
         return self.runQuery("INSERT INTO categories VALUES(?)",(item['categories_name'],))
 
     # added by Veronika
-    def modify(self,item):
-        return self.runQuery("UPDATE categories SET categories_name=(?) WHERE rowid=(?)",(item['categories_name'],item['rowid']))
+    def modify(self, item_name, category_name):
+        return self.runQuery("UPDATE categories SET categories_name=(?) WHERE categories_name=(?)",(category_name, item_name))
 
     def runQuery(self,query,ntuple):
         ''' return all of the uncompleted tasks as a list of dicts.'''
