@@ -1,6 +1,6 @@
 '''
 simple demo of fixtures for Python program with pytest
-use to test the TodoList class 
+use to test the TrackerList class 
 added by Veronika
 '''
 
