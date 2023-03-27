@@ -1,3 +1,4 @@
+'''Allows user to see summaries of transactions,and add, delete, or modify existing transactions'''
 import sys
 import os
 from transaction import TrackerList
@@ -18,10 +19,10 @@ def print_usage():
             type sum_transactions_year year (description: summarizes transactions in the given year in the format yyyy)
             type sum_transactions_category category (description: summarizes transactions of the given category)
             type print_usage (description: to print this message)
-            '''
-            )
+            ''')
 
 def print_transactions(todos):
+    ''' prints a list of all of the transactions '''
     if len(todos) == 0:
         print('no transactions to print')
         return
@@ -33,6 +34,7 @@ def print_transactions(todos):
         print("%-30s %-30s %-30s %-30s %-30s"%values)
 
 def print_categories(todos):
+    ''' prints a list of each category of transaction in the given database'''
     if len(todos) == 0:
         print('no categories to print')
         return
@@ -48,6 +50,7 @@ def delete_transaction(tracker, rowid):
     tracker.delete(rowid)
 #written by Kevin
 def sum_transactions(transactions):
+    '''summarizes total # and amounts of transactions'''
     if len(transactions) == 0:
         print('no transactions')
         return
@@ -63,6 +66,7 @@ def sum_transactions(transactions):
     print('Total number of transactions: ', count)
 
 def process_args(arglist):
+    ''' processes the users arguments and runs the proper function '''
     track_list = TrackerList(os.path.join(os.environ['HOME'], 'tracker.db'))
     category_list = CategoriesList()
     if arglist == []:
@@ -86,7 +90,7 @@ def process_args(arglist):
                 break
 
         if not exists:
-            temp_args=['add_category', category_inputed]
+            temp_args = ['add_category', category_inputed]
             category_list.add({'categories_name':temp_args[1]})
 
         # Check is over
@@ -95,7 +99,7 @@ def process_args(arglist):
 
     elif arglist[0] == 'add_category':
         category_list.add({'categories_name':arglist[1]})
-        
+
     elif arglist[0] == 'modify_category':
         print(arglist[1], arglist[2])
         category_list.modify(arglist[1], arglist[2])
@@ -120,6 +124,7 @@ def process_args(arglist):
         print_usage()
 
 def toplevel():
+    ''' takes user input, splits into args for other functions'''
     if len(sys.argv) == 1:
         print_usage()
         args = []
