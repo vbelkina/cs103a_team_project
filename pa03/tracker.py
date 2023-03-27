@@ -42,7 +42,26 @@ def print_categories(todos):
     for item in todos:
         values = tuple(item.values()) #(rowid,category)
         print("%-30s %-30s "%values)
+#written by Ian
+def delete_transaction(rowid):
+    """Deletes a transaction from the list."""
+    TrackerList.delete(rowid)
 
+def summarize_by_date(date):
+    """Summarizes transactions on the given date."""
+    transactions = TrackerList.select_by_date(date)
+    total = 0
+    for transaction in transactions:
+        total += transaction['amount']
+    return total
+
+def summarize_by_month(month):
+    """Summarizes transactions in the given month."""
+    transactions = TrackerList.select_by_month(month)
+    total = 0
+    for transaction in transactions:
+        total += transaction['amount']
+    return total
 #written by Kevin
 def sum_transactions(transactions):
     if len(transactions)==0:
