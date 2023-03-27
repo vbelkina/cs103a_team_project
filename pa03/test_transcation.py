@@ -6,7 +6,7 @@ added by Veronika
 
 import sqlite3
 import pytest
-from transaction import trackerList
+from transaction import TrackerList
 
 def to_dict(item):
     ''' t is a tuple (rowid,title, desc,completed)'''
@@ -50,7 +50,7 @@ def transactions(tracker_path,tuples):
         cur.execute('''insert into tracker values(?,?,?,?)''',tuples[i])
     # create the todolist database
     con.commit()
-    tracker = trackerList(tracker_path)
+    tracker = TrackerList(tracker_path)
     yield tracker
     cur.execute('''drop table tracker''')
     con.commit()
@@ -58,7 +58,7 @@ def transactions(tracker_path,tuples):
 def test_select_all(transactions,returned_dicts):
     ''' test the selectAll method'''
     tracker = transactions
-    results = tracker.selectAll()
+    results = tracker.select_all()
     expected = returned_dicts
     assert results == expected
 
@@ -66,7 +66,7 @@ def test_add(transactions,returned_dicts):
     ''' test the add method'''
     tracker = transactions
     tracker.add({'amount':'100','category':'test3','date':'2018-01-01','description':'test3'})
-    results = tracker.selectAll()
+    results = tracker.select_all()
     expected = returned_dicts
     expected.append({'rowid':3,'amount':'100','category':'test3',
                      'date':'2018-01-01','description':'test3'})
@@ -76,7 +76,7 @@ def test_delete(transactions,returned_dicts):
     ''' test the delete method'''
     tracker = transactions
     tracker.delete(1)
-    results = tracker.selectAll()
+    results = tracker.select_all()
     expected = returned_dicts
     expected.pop(0)
     assert results == expected
@@ -85,7 +85,7 @@ def test_delete(transactions,returned_dicts):
 def test_select_by_category(transactions,returned_dicts):
     ''' test the selectByCategory method'''
     tracker = transactions
-    results = tracker.selectByCategory('test1')
+    results = tracker.select_by_category('test1')
     expected = returned_dicts
     expected.pop(1)
     assert results == expected
@@ -94,7 +94,7 @@ def test_select_by_category(transactions,returned_dicts):
 def test_select_by_year(transactions,returned_dicts):
     ''' test the selectByYear method'''
     tracker = transactions
-    results = tracker.selectByYear('2018')
+    results = tracker.select_by_year('2018')
     expected = returned_dicts
     assert results == expected
 
@@ -102,7 +102,7 @@ def test_select_by_year(transactions,returned_dicts):
 def test_select_by_month(transactions,returned_dicts):
     ''' test the selectByMonth method'''
     tracker = transactions
-    results = tracker.selectByMonth('2018-01')
+    results = tracker.select_by_month('2018-01')
     expected = returned_dicts
     assert results == expected
 
@@ -110,6 +110,6 @@ def test_select_by_month(transactions,returned_dicts):
 def test_select_by_date(transactions,returned_dicts):
     ''' test the selectByDay method'''
     tracker = transactions
-    results = tracker.selectByDate('2018-01-01')
+    results = tracker.select_by_date('2018-01-01')
     expected = returned_dicts
     assert results == expected
