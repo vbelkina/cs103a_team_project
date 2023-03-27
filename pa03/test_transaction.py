@@ -1,6 +1,6 @@
 '''
 simple demo of fixtures for Python program with pytest
-use to test the TrackerList class 
+use to test the TrackerList class
 added by Veronika
 '''
 
@@ -37,17 +37,18 @@ def returned_dicts(tuples):
 
 @pytest.fixture
 def tracker_path(tmp_path):
+    '''creates the path to the database to be tracked'''
     yield tmp_path / 'tracker.db'
 
 @pytest.fixture(autouse=True)
-def transactions(tracker_path,tuples):
+def transactions(tracker_path, tuples):
     "create and initialize the todo.db database in /tmp "
-    con= sqlite3.connect(tracker_path)
+    con = sqlite3.connect(tracker_path)
     cur = con.cursor()
     cur.execute('''CREATE TABLE IF NOT EXISTS tracker
                     (amount text, category text, date text, description text)''')
     for i in range(len(tuples)):
-        cur.execute('''insert into tracker values(?,?,?,?)''',tuples[i])
+        cur.execute('''insert into tracker values(?,?,?,?)''', tuples[i])
     # create the todolist database
     con.commit()
     tracker = TrackerList(tracker_path)
@@ -55,24 +56,24 @@ def transactions(tracker_path,tuples):
     cur.execute('''drop table tracker''')
     con.commit()
 
-def test_select_all(transactions,returned_dicts):
+def test_select_all(transactions, returned_dicts):
     ''' test the selectAll method'''
     tracker = transactions
     results = tracker.select_all()
     expected = returned_dicts
     assert results == expected
 
-def test_add(transactions,returned_dicts):
+def test_add(transactions, returned_dicts):
     ''' test the add method'''
     tracker = transactions
-    tracker.add({'amount':'100','category':'test3','date':'2018-01-01','description':'test3'})
+    tracker.add({'amount':'100', 'category':'test3', 'date':'2018-01-01', 'description':'test3'})
     results = tracker.select_all()
     expected = returned_dicts
-    expected.append({'rowid':3,'amount':'100','category':'test3',
-                     'date':'2018-01-01','description':'test3'})
+    expected.append({'rowid':3, 'amount':'100', 'category':'test3',
+                     'date':'2018-01-01', 'description':'test3'})
     assert results == expected
 
-def test_delete(transactions,returned_dicts):
+def test_delete(transactions, returned_dicts):
     ''' test the delete method'''
     tracker = transactions
     tracker.delete(1)
@@ -82,7 +83,7 @@ def test_delete(transactions,returned_dicts):
     assert results == expected
 
 #Written by Kevin
-def test_select_by_category(transactions,returned_dicts):
+def test_select_by_category(transactions, returned_dicts):
     ''' test the selectByCategory method'''
     tracker = transactions
     results = tracker.select_by_category('test1')
@@ -91,7 +92,7 @@ def test_select_by_category(transactions,returned_dicts):
     assert results == expected
 
 #Written by Kevin
-def test_select_by_year(transactions,returned_dicts):
+def test_select_by_year(transactions, returned_dicts):
     ''' test the selectByYear method'''
     tracker = transactions
     results = tracker.select_by_year('2018')
@@ -99,7 +100,7 @@ def test_select_by_year(transactions,returned_dicts):
     assert results == expected
 
 #Written by Kevin
-def test_select_by_month(transactions,returned_dicts):
+def test_select_by_month(transactions, returned_dicts):
     ''' test the selectByMonth method'''
     tracker = transactions
     results = tracker.select_by_month('2018-01')
@@ -107,7 +108,7 @@ def test_select_by_month(transactions,returned_dicts):
     assert results == expected
 
 #Written by Kevin
-def test_select_by_date(transactions,returned_dicts):
+def test_select_by_date(transactions, returned_dicts):
     ''' test the selectByDay method'''
     tracker = transactions
     results = tracker.select_by_date('2018-01-01')
