@@ -49,7 +49,7 @@ class TrackerList():
         return self.run_query("SELECT rowid,* FROM tracker WHERE date=(?)",(date,))
 
     def run_query(self,query,ntuple):
-        ''' return all of the uncompleted tasks as a list of dicts.'''
+        '''Returns the result of the given SQL query as a list of dicts.'''
         con= sqlite3.connect(self.db_path)
         cur = con.cursor()
         cur.execute(query,ntuple)
