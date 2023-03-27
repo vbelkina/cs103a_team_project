@@ -87,7 +87,7 @@ def process_args(arglist):
         # if yes then we continue else we put it into the db.
         category_inputed = arglist[2]
         exists = False
-        for item in category_list.selectAll():
+        for item in category_list.select_all():
             values = tuple(item.values()) #(rowid,category)
             if values[1] == category_inputed:
                 exists = True

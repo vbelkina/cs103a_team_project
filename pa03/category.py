@@ -1,10 +1,12 @@
+'''A module for the CategoriesList class.'''
+
 import sqlite3
 import os
 
 # added by Daniel
-def to_dict(t):
+def to_dict(item):
     '''Converts a tuple to a dictionary.'''
-    categories = {'rowid': t[0], 'categories_name': t[1]}
+    categories = {'rowid': item[0], 'categories_name': item[1]}
     return categories
 
 # added by Daniel
@@ -14,12 +16,12 @@ class CategoriesList:
     def __init__(self):
         '''Initializes the CategoriesList object.'''
         self.run_query('''CREATE TABLE IF NOT EXISTS categories (categories_name text)''',())
-        
+
     # added by Daniel
-    def selectAll(self):
+    def select_all(self):
         '''Returns all rows from the categories table as a list of dictionaries.'''
         return self.run_query("SELECT rowid,* from categories",())
-    
+
     # added by Daniel
     def add(self, item):
         '''Inserts a new row into the categories table.'''
@@ -27,8 +29,10 @@ class CategoriesList:
 
     # added by Veronika
     def modify(self, item_name, category_name):
-        return self.runQuery("UPDATE categories SET categories_name=(?) WHERE categories_name=(?)",(category_name, item_name))
-    
+        '''Modifies a row in the categories table.'''
+        return self.runQuery("UPDATE categories SET categories_name=(?) WHERE categories_name=(?)",
+                             (category_name, item_name))
+
     # added by Daniel
     def run_query(self, query, ntuple):
         '''Executes a SQL query and returns the result as a list of dictionaries.'''
