@@ -1,4 +1,4 @@
-'''Allows user to see summaries of transactions,and add, delete, or modify existing transactions'''
+'''Allows user to see summaries of transactions, and add, delete, or modify existing transactions'''
 import sys
 import os
 from transaction import TrackerList
