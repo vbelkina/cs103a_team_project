@@ -15,12 +15,12 @@ class CategoriesList:
     '''A class representing a list of categories.'''
     def __init__(self):
         '''Initializes the CategoriesList object.'''
-        self.run_query('''CREATE TABLE IF NOT EXISTS categories (categories_name text)''',())
+        self.run_query('''CREATE TABLE IF NOT EXISTS categories (categories_name text)''', ())
 
     # added by Daniel
     def select_all(self):
         '''Returns all rows from the categories table as a list of dictionaries.'''
-        return self.run_query("SELECT rowid,* from categories",())
+        return self.run_query("SELECT rowid,* from categories", ())
 
     # added by Daniel
     def add(self, item):
@@ -31,7 +31,7 @@ class CategoriesList:
     def modify(self, item_name, category_name):
         '''Modifies a row in the categories table.'''
         return self.run_query("UPDATE categories SET categories_name=(?) WHERE categories_name=(?)",
-                             (category_name, item_name))
+                              (category_name, item_name))
 
     # added by Daniel
     def run_query(self, query, ntuple):
