@@ -1,7 +1,7 @@
-from transaction import TrackerList
-from category import CategoriesList
 import sys
 import os
+from transaction import TrackerList
+from category import CategoriesList
 
 def print_usage():
     ''' print an explanation of how to use this command '''
@@ -22,7 +22,7 @@ def print_usage():
             )
 
 def print_transactions(todos):
-    if len(todos)==0:
+    if len(todos) == 0:
         print('no transactions to print')
         return
     print('\n')
@@ -33,7 +33,7 @@ def print_transactions(todos):
         print("%-30s %-30s %-30s %-30s %-30s"%values)
 
 def print_categories(todos):
-    if len(todos)==0:
+    if len(todos) == 0:
         print('no categories to print')
         return
     print('\n')
@@ -43,28 +43,12 @@ def print_categories(todos):
         values = tuple(item.values()) #(rowid,category)
         print("%-30s %-30s "%values)
 #written by Ian
-def delete_transaction(rowid):
+def delete_transaction(tracker, rowid):
     """Deletes a transaction from the list."""
-    TrackerList.delete(rowid)
-
-def summarize_by_date(date):
-    """Summarizes transactions on the given date."""
-    transactions = TrackerList.select_by_date(date)
-    total = 0
-    for transaction in transactions:
-        total += transaction['amount']
-    return total
-
-def summarize_by_month(month):
-    """Summarizes transactions in the given month."""
-    transactions = TrackerList.select_by_month(month)
-    total = 0
-    for transaction in transactions:
-        total += transaction['amount']
-    return total
+    tracker.delete(rowid)
 #written by Kevin
 def sum_transactions(transactions):
-    if len(transactions)==0:
+    if len(transactions) == 0:
         print('no transactions')
         return
     print('\n')
@@ -81,17 +65,17 @@ def sum_transactions(transactions):
 def process_args(arglist):
     track_list = TrackerList(os.path.join(os.environ['HOME'], 'tracker.db'))
     category_list = CategoriesList()
-    if arglist==[]:
+    if arglist == []:
         print_usage()
 
-    elif arglist[0]=="showall_transactions":
-        print_transactions(todos = track_list.select_all())
+    elif arglist[0] == "showall_transactions":
+        print_transactions(todos=track_list.select_all())
 
-    elif arglist[0]=="showall_categories":
-        print_categories(todos = category_list.selectAll())
+    elif arglist[0] == "showall_categories":
+        print_categories(todos=category_list.selectAll())
 
-    elif arglist[0]=='add_transaction':
-        # Here I want to check if the inputed category is inside category db. 
+    elif arglist[0] == 'add_transaction':
+        # Here I want to check if the inputed category is inside category db.
         # if yes then we continue else we put it into the db.
         category_inputed = arglist[2]
         exists = False
@@ -100,69 +84,69 @@ def process_args(arglist):
             if values[1] == category_inputed:
                 exists = True
                 break
-        
-        if exists == False:
-            temp_args = ['add_category', category_inputed]
+
+        if not exists:
+            temp_args=['add_category', category_inputed]
             category_list.add({'categories_name':temp_args[1]})
 
         # Check is over
-        todo = {'amount':arglist[1],'category':arglist[2], 'date':arglist[3], 'description':arglist[4]}
+        todo = {'amount':arglist[1], 'category':arglist[2], 'date':arglist[3], 'description':arglist[4]}
         track_list.add(todo)
 
-    elif arglist[0]=='add_category':
+    elif arglist[0] == 'add_category':
         category_list.add({'categories_name':arglist[1]})
         
-    elif arglist[0]=='modify_category':
-        print(arglist[1],arglist[2])
-        category_list.modify(arglist[1],arglist[2])
+    elif arglist[0] == 'modify_category':
+        print(arglist[1], arglist[2])
+        category_list.modify(arglist[1], arglist[2])
 
-    elif arglist[0]=='delete_transaction':
-        track_list.delete(arglist[1])
+    elif arglist[0] == 'delete_transaction':
+        delete_transaction(track_list, arglist[1])
 
-    elif arglist[0]=='sum_transactions_date':
-        sum_transactions(transactions = track_list.select_by_date(arglist[1]))
+    elif arglist[0] == 'sum_transactions_date':
+        sum_transactions(transactions=track_list.select_by_date(arglist[1]))
 
-    elif arglist[0]=='sum_transactions_month':
-        sum_transactions(transactions = track_list.select_by_month(arglist[1]))
+    elif arglist[0] == 'sum_transactions_month':
+        sum_transactions(transactions=track_list.select_by_month(arglist[1]))
 
-    elif arglist[0]=='sum_transactions_year':
-        sum_transactions(transactions = track_list.select_by_year(arglist[1]))
+    elif arglist[0] == 'sum_transactions_year':
+        sum_transactions(transactions=track_list.select_by_year(arglist[1]))
 
-    elif arglist[0]=='sum_transactions_category':
-        sum_transactions(transactions = track_list.select_by_category(arglist[1]))
+    elif arglist[0] == 'sum_transactions_category':
+        sum_transactions(transactions=track_list.select_by_category(arglist[1]))
 
     else:
-        print(arglist," is not implemented")
+        print(arglist, " is not implemented")
         print_usage()
 
 def toplevel():
-    if len(sys.argv)==1:
+    if len(sys.argv) == 1:
         print_usage()
         args = []
-        while args!=['']:
+        while args != ['']:
             args = input("command> ").split(' ')
-            if args[0]=='quit':
+            if args[0] == 'quit':
                 break
 
-            elif args[0]=='add_transaction':
+            elif args[0] == 'add_transaction':
                 args = ['add_transaction', args[1], args[2], args[3], args[4]]
 
-            elif args[0]=='add_category':
+            elif args[0] == 'add_category':
                 args = ['add_category', args[1]]
 
-            elif args[0]=='delete_transaction':
+            elif args[0] == 'delete_transaction':
                 args = ['delete_transaction', args[1]]
 
-            elif args[0]=='sum_transactions_date':
+            elif args[0] == 'sum_transactions_date':
                 args = ['sum_transactions_date', args[1]]
 
-            elif args[0]=='sum_transactions_month':
+            elif args[0] == 'sum_transactions_month':
                 args = ['sum_transactions_month', args[1]]
 
-            elif args[0]=='sum_transactions_year':
+            elif args[0] == 'sum_transactions_year':
                 args = ['sum_transactions_year', args[1]]
 
-            elif args[0]=='sum_transactions_category':
+            elif args[0] == 'sum_transactions_category':
                 args = ['sum_transactions_category', args[1]]
 
             process_args(args)
