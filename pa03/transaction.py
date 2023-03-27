@@ -16,45 +16,45 @@ class TrackerList():
     """A class representing a list of transactions."""
     # added by Daniel
     def __init__(self, db_path):
-        self.db_path=db_path
+        self.db_path = db_path
         self.run_query('''CREATE TABLE IF NOT EXISTS tracker
-                    (amount text, category text, date text, description text)''',())
+                    (amount text, category text, date text, description text)''', ())
     # added by Daniel
     def select_all(self):
         """Return all of the transactions as a list of dicts."""
-        return self.run_query("SELECT rowid,* from tracker",())
+        return self.run_query("SELECT rowid,* from tracker", ())
     # added by Daniel
-    def add(self,item):
+    def add(self, item):
         """Add a new transaction to the list."""
         return self.run_query("INSERT INTO tracker VALUES(?,?,?,?)",
-                             (item['amount'],item['category'],item['date'],item['description']))
+                              (item['amount'], item['category'], item['date'], item['description']))
 
-    def delete(self,rowid):
+    def delete(self, rowid):
         """Delete a transaction from the list."""
-        return self.run_query("DELETE FROM tracker WHERE rowid=(?)",(rowid,))
+        return self.run_query("DELETE FROM tracker WHERE rowid=(?)", (rowid,))
 
-    def select_by_category(self,category):
+    def select_by_category(self, category):
         """Selects all transactions of the given category."""
-        return self.run_query("SELECT rowid,* FROM tracker WHERE category=(?)",(category,))
+        return self.run_query("SELECT rowid,* FROM tracker WHERE category=(?)", (category,))
 
-    def select_by_year(self,year):
+    def select_by_year(self, year):
         """Selects all transactions in the given year."""
-        return self.run_query("SELECT rowid,* FROM tracker WHERE date LIKE (?)",(year+'%',))
+        return self.run_query("SELECT rowid,* FROM tracker WHERE date LIKE (?)", (year+'%',))
 
-    def select_by_month(self,month):
+    def select_by_month(self, month):
         """Selects all transactions in the given month."""
-        return self.run_query("SELECT rowid,* FROM tracker WHERE date LIKE (?)",(month+'%',))
+        return self.run_query("SELECT rowid,* FROM tracker WHERE date LIKE (?)", (month+'%',))
 
-    def select_by_date(self,date):
+    def select_by_date(self, date):
         """Selects all transactions on the given date."""
-        return self.run_query("SELECT rowid,* FROM tracker WHERE date=(?)",(date,))
-    
+        return self.run_query("SELECT rowid,* FROM tracker WHERE date=(?)", (date,))
+
     # added by Daniel
-    def run_query(self,query,ntuple):
+    def run_query(self, query, ntuple):
         '''Returns the result of the given SQL query as a list of dicts.'''
-        con= sqlite3.connect(self.db_path)
+        con = sqlite3.connect(self.db_path)
         cur = con.cursor()
-        cur.execute(query,ntuple)
+        cur.execute(query, ntuple)
         tuples = cur.fetchall()
         con.commit()
         con.close()
