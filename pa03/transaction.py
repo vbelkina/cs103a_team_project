@@ -4,6 +4,7 @@
 import sqlite3
 #import os
 
+# added by Daniel
 def to_dict(tup):
     """Converts a tuple to a dictionary."""
     print('t='+str(tup))
@@ -13,16 +14,16 @@ def to_dict(tup):
 
 class TrackerList():
     """A class representing a list of transactions."""
-
+    # added by Daniel
     def __init__(self, db_path):
         self.db_path=db_path
         self.run_query('''CREATE TABLE IF NOT EXISTS tracker
                     (amount text, category text, date text, description text)''',())
-
+    # added by Daniel
     def select_all(self):
         """Return all of the transactions as a list of dicts."""
         return self.run_query("SELECT rowid,* from tracker",())
-
+    # added by Daniel
     def add(self,item):
         """Add a new transaction to the list."""
         return self.run_query("INSERT INTO tracker VALUES(?,?,?,?)",
@@ -47,7 +48,8 @@ class TrackerList():
     def select_by_date(self,date):
         """Selects all transactions on the given date."""
         return self.run_query("SELECT rowid,* FROM tracker WHERE date=(?)",(date,))
-
+    
+    # added by Daniel
     def run_query(self,query,ntuple):
         '''Returns the result of the given SQL query as a list of dicts.'''
         con= sqlite3.connect(self.db_path)
