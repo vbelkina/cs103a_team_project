@@ -30,7 +30,7 @@ class CategoriesList:
     # added by Veronika
     def modify(self, item_name, category_name):
         '''Modifies a row in the categories table.'''
-        return self.runQuery("UPDATE categories SET categories_name=(?) WHERE categories_name=(?)",
+        return self.run_query("UPDATE categories SET categories_name=(?) WHERE categories_name=(?)",
                              (category_name, item_name))
 
     # added by Daniel

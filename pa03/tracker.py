@@ -79,7 +79,7 @@ def process_args(arglist):
         print_transactions(todos=track_list.select_all())
     # added by Daniel
     elif arglist[0] == "showall_categories":
-        print_categories(todos=category_list.selectAll())
+        print_categories(todos=category_list.select_all())
     
     # added by Daniel
     elif arglist[0] == 'add_transaction':
