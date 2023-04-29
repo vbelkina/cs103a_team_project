@@ -7,6 +7,7 @@ const layouts = require("express-ejs-layouts");
 const pw_auth_router = require('./routes/pwauth')
 const toDoRouter = require('./routes/todo');
 const weatherRouter = require('./routes/weather');
+const veronika_gptRouter = require('./routes/veronika_gpt');
 
 const User = require('./models/User');
 
@@ -106,8 +107,10 @@ app.get('/about',
   }
 )
 
+app.use(veronika_gptRouter);
 app.use(toDoRouter);
 app.use(weatherRouter);
+
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

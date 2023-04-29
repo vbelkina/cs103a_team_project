@@ -1,0 +1,164 @@
+<style>
+    html {
+          height: 100%;
+    }
+
+    #all_container {
+        display: flex;
+        flex-direction: row;
+        min-height: 100%;
+    }
+
+    body {
+        background-image: url('https://media.discordapp.net/attachments/1084303579856244766/1101946564848668723/hsieh.poyen_classic_fish_and_dragon_with_beautiful_plants_laven_b0a4cba8-e040-469f-9d45-bac2adf8cc34.png');
+        background-repeat: repeat;
+        background-size: 30%;
+    }
+
+    h2 {
+        display: flex;
+        font-size: 20px;
+        margin: auto;
+        margin-top: 20px;
+        padding: 10px;
+    }
+    
+    #always_show {
+        font-family: sans-serif;
+        margin: 0px;
+        display: flex;
+        flex-direction: column;
+        padding: 20px;
+        background-color: rgba(255, 255, 255, 0.8);
+        border-radius: 10px;
+        margin-top: 10px;
+    }
+
+    form {
+        display: flex;
+        flex-direction: row;
+    }
+
+    table {
+        padding: 5px;
+        display: flex;
+        flex-direction: column;
+    }
+
+    tr {
+        width: 70%;
+        border-style: solid;
+        border-width: 1px;
+        border-color: #989ab8;
+        padding: 5px;
+    }
+
+    td {
+        border-style: solid;
+        border-width: 1px;
+        border-color: #989ab8;
+        padding: 5px;
+        width: 500px;
+    }
+
+    tr>.header {
+        font-weight: bold;
+        background-color: #989ab8;
+        color: white;
+    }
+
+    #icons {
+        color:#989ab8;
+    }
+
+    button {
+        background-color:#989ab8;
+        color: white;
+        border-radius: 10px;
+        padding: 10px;
+        border: none;
+        margin: 10px;
+        width: 100px;
+    }
+
+    textarea {
+        border: none; 
+        background-color: #989ab8;
+        color: white;
+        padding: 10px;
+        border-radius: 10px;
+        margin-left: 10px;
+        min-height: 50px;
+        max-height: fit-content;
+        width: 700px;
+    }
+
+    #show_answer {
+        color: black;
+        padding: 10px;
+        min-width: fit-content;
+        max-width: 760px;
+        border-radius: 10px;
+
+    }
+
+    #response {
+        margin: 10px;
+        margin-top: 10px;
+        padding: 20px;
+        width: 100%;
+        height: fit-content;
+        background-color: white;
+        border-radius: 10px;
+        background-color: rgba(255, 255, 255, 0.8);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+
+</style>
+<body>
+    <div id="all_container">
+        <div id="always_show">
+            <h2>Translate to Russian</h2>
+            <form method="post" action="veronika_gpt">
+                <textarea type="text" name="vb_input" placeholder="enter a prompt"></textarea>
+                <button type="submit" value="store" >Submit</button>
+            </form>
+
+            <h2>History</h2>
+            <table>
+                <tr class="header">
+                    <td class="header">Prompt</td>
+                    <td class="header">Response</td>
+                    <td class="header">Delete</td>
+                </tr>
+            <% items.forEach(item => { %>
+                
+                    <tr>
+                        <td><%= item.entry %> </td>
+                        <td><%= item.reply %> </td>
+
+                    <td><a href="/veronika_gpt/remove/<%=item._id %>" id="icons">
+                        <i class="bi bi-trash"></i>
+                    </a></td>   
+                    <tr>
+                
+            <% }) %>
+            </table>
+        </div>
+
+        <div id="response">
+            <% if (!response) { %>
+                <h2> Translation </h2>
+
+            <% } else {%> 
+                <h2> Translation </h2>
+                <div id="show_answer"><%= response.data.choices[0].text %></div>
+            <% } %>
+        </div>
+    </div>
+</body>
+
+
