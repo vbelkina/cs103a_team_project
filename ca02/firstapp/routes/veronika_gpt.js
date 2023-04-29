@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const User = require('../models/User')
-const VeronikaGPT = require('../models/VeronikaGPT')
+const VeronikaGPT = require('../models/GPT')
 
 
 isLoggedIn = (req,res,next) => {
@@ -17,7 +17,7 @@ router.get('/veronika_gpt', isLoggedIn,
     async (req,res,next) => {
         const show = req.query.show
         let items=[]
-        items = await VeronikaGPT.find({userId:req.user._id}).sort({createdAt:1})
+        items = await GPT.find({userId:req.user._id}).sort({createdAt:1})
         let response = ""
         res.render('veronika_gpt', {items, response})
 })
@@ -39,16 +39,17 @@ router.post('/veronika_gpt', isLoggedIn, async (req, res, next) => {
 
       console.log(response)
   
-      const veronika_gpt = new VeronikaGPT({
+      const veronika_gpt = new GPT({
         entry: req.body.vb_input,
         reply: response.data.choices && response.data.choices.length > 0 ? response.data.choices[0].text : '', 
+        language: 'Russian',
         createdAt: new Date(),
         userId: req.user._id,
       });
   
       await veronika_gpt.save();
   
-      const items = await VeronikaGPT.find({ userId: req.user._id }).sort({ createdAt: 1 });
+      const items = await GPT.find({ userId: req.user._id }).sort({ createdAt: 1 });
 
       res.render('veronika_gpt', { items, response });
 
@@ -62,7 +63,7 @@ router.get('/veronika_gpt/remove/:itemId',
 isLoggedIn,
 async (req, res, next) => {
     console.log("inside /veronika_gpt/remove/:itemId")
-    await VeronikaGPT.deleteOne({_id:req.params.itemId});
+    await GPT.deleteOne({_id:req.params.itemId});
     res.redirect('/veronika_gpt')
 });
 
