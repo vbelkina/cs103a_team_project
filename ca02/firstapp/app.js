@@ -8,6 +8,7 @@ const pw_auth_router = require('./routes/pwauth')
 const toDoRouter = require('./routes/todo');
 const weatherRouter = require('./routes/weather');
 const veronika_gptRouter = require('./routes/veronika_gpt');
+const ian_gptRouter = require('./routes/ian_gpt');
 
 const User = require('./models/User');
 
@@ -106,7 +107,7 @@ app.get('/about',
     res.render('about');
   }
 )
-
+app.use(ian_gptRouter);
 app.use(veronika_gptRouter);
 app.use(toDoRouter);
 app.use(weatherRouter);
