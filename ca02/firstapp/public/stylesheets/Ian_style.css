@@ -9,9 +9,8 @@ html {
 }
 
 body {
-    background-image: url('/Assets/french.jpg');
-    background-repeat: repeat;
-    background-size: 30%;
+    background-image: url('/stylesheets/Assets/french.jpg');
+    background-size: 100%;
 }
 
 h2 {
