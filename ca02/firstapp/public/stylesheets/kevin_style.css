@@ -1,0 +1,115 @@
+html {
+    height: 100%;
+}
+
+#all_container {
+display: flex;
+flex-direction: row;
+min-height: 100%;
+}
+
+body {
+background-image: url('https://upload.wikimedia.org/wikipedia/commons/thumb/f/fa/Flag_of_the_People%27s_Republic_of_China.svg/1200px-Flag_of_the_People%27s_Republic_of_China.svg.png');
+background-size: 100%;
+}
+
+h2 {
+display: flex;
+font-size: 20px;
+margin: auto;
+margin-top: 20px;
+padding: 10px;
+}
+
+#always_show {
+font-family: sans-serif;
+margin: 0px;
+display: flex;
+flex-direction: column;
+padding: 20px;
+background-color: rgba(255, 255, 255, 0.8);
+border-radius: 10px;
+margin-top: 10px;
+}
+
+form {
+display: flex;
+flex-direction: row;
+}
+
+table {
+padding: 5px;
+display: flex;
+flex-direction: column;
+}
+
+tr {
+width: 70%;
+border-style: solid;
+border-width: 1px;
+border-color: #989ab8;
+padding: 5px;
+}
+
+td {
+border-style: solid;
+border-width: 1px;
+border-color: #989ab8;
+padding: 5px;
+width: 500px;
+}
+
+tr>.header {
+font-weight: bold;
+background-color: #989ab8;
+color: white;
+}
+
+#icons {
+color:#989ab8;
+}
+
+button {
+background-color:#989ab8;
+color: white;
+border-radius: 10px;
+padding: 10px;
+border: none;
+margin: 10px;
+width: 100px;
+}
+
+textarea {
+border: none; 
+background-color: #989ab8;
+color: white;
+padding: 10px;
+border-radius: 10px;
+margin-left: 10px;
+min-height: 50px;
+max-height: fit-content;
+width: 700px;
+}
+
+#show_answer {
+color: black;
+padding: 10px;
+min-width: fit-content;
+max-width: 760px;
+border-radius: 10px;
+
+}
+
+#response {
+margin: 10px;
+margin-top: 10px;
+padding: 20px;
+width: 100%;
+height: fit-content;
+background-color: white;
+border-radius: 10px;
+background-color: rgba(255, 255, 255, 0.8);
+display: flex;
+flex-direction: column;
+align-items: center;
+}
