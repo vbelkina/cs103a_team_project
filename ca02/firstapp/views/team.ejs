@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Team Page</title>
+    <link rel="stylesheet" href="/stylesheets/team_style.css">
+  </head>
+  <body>
+    <main>
+      <h1>Meet the Team</h1>
+      <% for (let member of team) { %>
+        <div class="team-member">
+          <h2><%= member.name %></h2>
+          <p><%= member.bio %></p>
+        </div>
+      <% } %>
+    </main>
+  </body>
+</html>

@@ -1,0 +1,48 @@
+body {
+  /* Set the background gradient */
+  background: linear-gradient(to bottom, #f0f0f0, #d9d9d9);
+  margin: 0;
+  padding: 0;
+  font-family: sans-serif;
+}
+
+main {
+  /* Center the content */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.team-member {
+  /* Add styles for team member cards */
+  background-color: white;
+  padding: 20px;
+  margin: 20px;
+  box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.2);
+  border-radius: 10px;
+  max-width: 400px;
+  text-align: center;
+}
+
+.team-member img {
+  /* Add styles for team member images */
+  width: 100%;
+  max-width: 200px;
+  height: auto;
+  border-radius: 50%;
+  margin-bottom: 10px;
+}
+
+.team-member h2 {
+  /* Add styles for team member names */
+  font-size: 24px;
+  margin-bottom: 10px;
+}
+
+.team-member p {
+  /* Add styles for team member bios */
+  font-size: 16px;
+  line-height: 1.5;
+}

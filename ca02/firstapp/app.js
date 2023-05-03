@@ -110,6 +110,18 @@ app.get('/about',
   }
 )
 
+app.get('/team', (req, res) => {
+  // Define an array of team members
+  const team = [
+    { name: 'Ian Irvine', bio: 'Senior at Brandeis University, graduating shortly with degrees in Comp Lit and French and a Minor in CS.' },
+    { name: 'Name 2', bio: 'Bio 2' },
+    { name: 'Name 3', bio: 'Bio 3' },
+  ];
+
+  // Render the team page using the EJS template engine
+  res.render('team', { team });
+});
+
 app.use(daniel_gpt);
 app.use(ian_gptRouter);
 app.use(veronika_gptRouter);
