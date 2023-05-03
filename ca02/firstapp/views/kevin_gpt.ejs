@@ -1,0 +1,50 @@
+<head>
+    <link rel='stylesheet' href='/stylesheets/kevin_style.css' />
+</head>
+
+<body>
+    <div id="all_container">
+        <div id="always_show">
+            <h2>Translate to Mandarin</h2>
+            <form method="post" action="kevin_gpt">
+                <textarea type="text" name="input" placeholder="enter a prompt"></textarea>
+                <button type="submit" value="store" >Submit</button>
+            </form>
+
+            <h2>History</h2>
+            <table>
+                <tr class="header">
+                    <td class="header">Prompt</td>
+                    <td class="header">Response</td>
+                    <td class="header">Language</td>
+                    <td class="header">Delete</td>
+                </tr>
+            <% items.forEach(item => { %>
+                
+                    <tr>
+                        <td><%= item.entry %> </td>
+                        <td><%= item.reply %> </td>
+                        <td><%= item.language %></td>
+
+                    <td><a href="/kevin_gpt/remove/<%=item._id %>" id="icons">
+                        <i class="bi bi-trash"></i>
+                    </a></td>   
+                    <tr>
+                
+            <% }) %>
+            </table>
+        </div>
+
+        <div id="response">
+            <% if (!response) { %>
+                <h2> Translation </h2>
+
+            <% } else {%> 
+                <h2> Translation </h2>
+                <div id="show_answer"><%= response.data.choices[0].text %></div>
+            <% } %>
+        </div>
+    </div>
+</body>
+
+

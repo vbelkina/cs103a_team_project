@@ -10,6 +10,7 @@ const weatherRouter = require('./routes/weather');
 const veronika_gptRouter = require('./routes/veronika_gpt');
 const ian_gptRouter = require('./routes/ian_gpt');
 const daniel_gpt =  require('./routes/daniel-gpt');
+const kevin_gptRouter = require('./routes/kevin_gpt');
 
 
 const User = require('./models/User');
@@ -125,6 +126,7 @@ app.get('/team', (req, res) => {
 app.use(daniel_gpt);
 app.use(ian_gptRouter);
 app.use(veronika_gptRouter);
+app.use(kevin_gptRouter);
 app.use(toDoRouter);
 app.use(weatherRouter);
 
