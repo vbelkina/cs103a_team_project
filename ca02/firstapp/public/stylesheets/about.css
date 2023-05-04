@@ -1,0 +1,68 @@
+body {
+  background-image: url("/stylesheets/Assets/language.png");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center center;
+  vertical-align: middle;
+}
+
+.container {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 1rem;
+}
+
+h1 {
+  text-align: center;
+  color: white;
+  font-size: 64px;
+}
+p{
+  text-align: center;
+  color: white;
+  font-size: 32px;
+}
+
+.card {
+  margin: 1rem;
+  padding: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.card_title {
+  font-size: 1.2rem;
+  font-weight: bold;
+}
+
+.card_body {
+  font-size: 1rem;
+  margin-top: 0.5rem;
+}
+
+.card_img {
+  max-width: 100%;
+  height: auto;
+  margin-bottom: 0.5rem;
+}
+
+.title_card {
+  margin: 1rem;
+  padding: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.title_card_title {
+  text-align: center;
+  font-size: 1.8rem;
+  font-weight: bold;
+}
+
+.title_card_body {
+  text-align: center;
+  font-size: 1.2rem;
+  margin-top: 0.5rem;
+}
